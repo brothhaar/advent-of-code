@@ -30,8 +30,9 @@ def compute(code):
     return code
 
 
-with open('input') as f:
-    code_str = f.readline()
-    code = parse(code_str)
-    ans = compute(code)
-    print('answer: %s' % unparse(ans))
+if __name__ == "__main__":
+    with open('input') as f:
+        code_str = f.readline()
+        code = parse(code_str)
+        ans = compute(code)
+        print('answer: %s' % unparse(ans))

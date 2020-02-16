@@ -8,9 +8,10 @@ def fuel(mass):
     return f + fuel(f)
 
 
-with open('input') as masses:
-    ans = 0
-    for mass in masses:
-        ans += fuel(int(mass))
+if __name__ == "__main__":
+    with open('input') as masses:
+        ans = 0
+        for mass in masses:
+            ans += fuel(int(mass))
 
-print('answer: %d' % ans)
+    print('answer: %d' % ans)
