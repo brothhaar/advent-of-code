@@ -13,10 +13,6 @@ def parse(code_str):
     return code
 
 
-def unparse(code):
-    return ','.join(map(str, code))
-
-
 def compute(code):
     i = 0
     while code[i] != 99:
@@ -35,4 +31,4 @@ if __name__ == "__main__":
         code_str = f.readline()
         code = parse(code_str)
         ans = compute(code)
-        print('answer: %s' % unparse(ans))
+        print('answer: %s' % ans[0])
