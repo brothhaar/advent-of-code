@@ -7,11 +7,13 @@ def getKey(x, y):
 
 class WireTrace:
 
-    def __init__(self, wire_map):
-        self.wire_map = wire_map
+    def __init__(self):
+        self.wire_map = {}
 
     def visit_point(self, x, y):
-        pass
+        key = getKey(x, y)
+        # print('pt: %s' % key)
+        self.wire_map[key] = abs(x) + abs(y)
 
     def trace_right(self, x, y, dist):
         xend = x + dist
@@ -58,34 +60,20 @@ class WireTrace:
             x, y = self.trace_segment(x, y, segment)
 
 
-class WireTraceOne(WireTrace):
-
-    def visit_point(self, x, y):
-        key = getKey(x, y)
-        # print('pt: %s' % key)
-        self.wire_map[key] = 1
-
-
-class WireTraceTwo(WireTrace):
-    min_dist = sys.maxsize
-
-    def visit_point(self, x, y):
-        key = getKey(x, y)
-        # print('pt: %s' % key)
-        if key != '0,0' and key in self.wire_map:
-            dist = abs(x) + abs(y)
-            if dist < self.min_dist:
-                self.min_dist = dist
-            print('found intersection at %s, distance %d, min %d' % (key, dist, self.min_dist))
-
-
 def wires_intersect(wire1_str, wire2_str):
-    wire_map = {}
-    wire1 = WireTraceOne(wire_map)
+    wire1 = WireTrace()
     wire1.trace_wire(wire1_str)
-    wire2 = WireTraceTwo(wire_map)
+    wire2 = WireTrace()
     wire2.trace_wire(wire2_str)
-    return wire2.min_dist
+
+    intersects = set(wire1.wire_map.items()) & set(wire2.wire_map.items())
+    min_dist = sys.maxsize
+    for item in intersects:
+        print('intersection: ', item)
+        if item[1] < min_dist:
+            min_dist = item[1]
+
+    return min_dist
 
 
 if __name__ == "__main__":
