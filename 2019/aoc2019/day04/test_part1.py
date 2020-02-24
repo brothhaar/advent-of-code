@@ -1,4 +1,4 @@
-from part1 import check_password
+from aoc2019.day04.part1 import check_password
 
 
 def test_check_password():

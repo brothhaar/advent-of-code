@@ -1,4 +1,5 @@
-from part1 import compute, parse
+import pathlib
+from aoc2019.intcode import compute, parse
 
 
 def find_inputs(code_str, exp):
@@ -13,7 +14,7 @@ def find_inputs(code_str, exp):
 
 
 if __name__ == "__main__":
-    with open('input') as f:
+    with open(pathlib.Path(__file__).parent / 'input') as f:
         code_str = f.readline()
         ans = find_inputs(code_str, 19690720)
         print('answer: %d' % ans)

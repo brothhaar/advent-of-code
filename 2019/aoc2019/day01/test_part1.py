@@ -1,4 +1,4 @@
-from part1 import fuel
+from aoc2019.day01.part1 import fuel
 
 
 def test_fuel():

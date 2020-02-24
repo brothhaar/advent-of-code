@@ -1,4 +1,4 @@
-from part2 import wires_intersect
+from aoc2019.day03.part2 import wires_intersect
 
 
 def test_wires_intersect():

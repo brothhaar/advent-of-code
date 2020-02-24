@@ -1,3 +1,4 @@
+import pathlib
 import sys
 
 
@@ -77,7 +78,7 @@ def wires_intersect(wire1_str, wire2_str):
 
 
 if __name__ == "__main__":
-    with open('input') as f:
+    with open(pathlib.Path(__file__).parent / 'input') as f:
         wire1_str = f.readline()
         wire2_str = f.readline()
         ans = wires_intersect(wire1_str, wire2_str)

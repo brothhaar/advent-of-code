@@ -1,0 +1,1 @@
+from aoc2019.intcode import compute

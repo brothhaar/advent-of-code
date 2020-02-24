@@ -24,11 +24,3 @@ def compute(code):
         code[out_pos] = opcode.__call__(code[op1_pos], code[op2_pos])
         i = i + 4
     return code
-
-
-if __name__ == "__main__":
-    with open('input') as f:
-        code_str = f.readline()
-        code = parse(code_str)
-        ans = compute(code)
-        print('answer: %s' % ans[0])

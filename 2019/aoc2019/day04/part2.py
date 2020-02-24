@@ -33,7 +33,6 @@ def check_part_2(digits):
 
 def check_password(password):
     digits = get_digits(password)
-    #print("%d %d %d %d %d %d %d" % (password, d0, d1, d2, d3, d4, d5))
     return 99999 < password < 1000000 and (
         digits[0] == digits[1] or digits[1] == digits[2] or digits[2] == digits[3] or digits[3] == digits[4] or
         digits[4] == digits[5]) and (

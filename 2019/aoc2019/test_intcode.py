@@ -1,4 +1,4 @@
-from part1 import compute
+from aoc2019.intcode import compute
 
 
 def test_compute():
