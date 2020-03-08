@@ -1,14 +1,15 @@
 import pathlib
-from aoc2019.intcode import compute, parse
+from aoc2019.intcode import IntCodeComputer, parse_code
 
 
 def find_inputs(code_str, exp):
     for noun in range(0, 100):
         for verb in range(0, 100):
-            code = parse(code_str)
+            code = parse_code(code_str)
             code[1] = noun
             code[2] = verb
-            ans = compute(code)
+            icc = IntCodeComputer()
+            ans = icc.compute(code)
             if ans[0] == exp:
                 return 100 * noun + verb
 
