@@ -31,6 +31,8 @@ class IntCodeComputer:
         if inputs is None:
             inputs = []
         self.inputs = inputs
+        self.done = False
+        self.ip = 0
 
     def op_add(self, ip, code, param_modes):
         op1 = get_operand(code, ip + 1, param_modes[0])
@@ -50,7 +52,7 @@ class IntCodeComputer:
 
     def op_input(self, ip, code, param_modes):
         op1 = code[ip + 1]
-        input =  self.inputs.pop(0)
+        input = self.inputs.pop(0)
         code[op1] = input
         print('%d input %d => %d' % (ip, input, op1))
         return ip + 2, code
@@ -112,13 +114,31 @@ class IntCodeComputer:
     }
 
     def compute(self, code):
-        ip = 0
+        ip = self.ip
         while code[ip] != 99:
             inst = code[ip]
             opcode, param_modes = parse_instruction(inst)
             operation = self.operations.get(opcode)
             ip, code = operation.__call__(self, ip, code, param_modes)
+        self.done = True
+        self.ip = ip
+        return code
+
+    def compute_until_output(self, code):
+        ip = self.ip
+        cont = True
+        while cont:
+            inst = code[ip]
+            opcode, param_modes = parse_instruction(inst)
+            operation = self.operations.get(opcode)
+            ip, code = operation.__call__(self, ip, code, param_modes)
+            cont = code[ip] != 99 and opcode != 4
+        self.done = code[ip] == 99
+        self.ip = ip
         return code
 
     def get_output(self):
         return self.output_value
+
+    def set_inputs(self, inputs):
+        self.inputs = inputs
