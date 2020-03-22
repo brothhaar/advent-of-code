@@ -114,14 +114,13 @@ class IntCodeComputer:
     }
 
     def compute(self, code):
-        ip = self.ip
+        ip = 0
         while code[ip] != 99:
             inst = code[ip]
             opcode, param_modes = parse_instruction(inst)
             operation = self.operations.get(opcode)
             ip, code = operation.__call__(self, ip, code, param_modes)
         self.done = True
-        self.ip = ip
         return code
 
     def compute_until_output(self, code):
