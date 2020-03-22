@@ -33,6 +33,8 @@ class Orbit:
     def search(self, dist):
         self.visited = True
         print('searching %s, dist: %d' % (self.name, dist))
+        if self.parent and not self.parent.visited:
+            self.parent.search(dist + 1)
         for o in self.orbiters:
             if o.visited:
                 continue
@@ -41,8 +43,6 @@ class Orbit:
                 o.dist = dist
             else:
                 o.search(dist + 1)
-        if self.parent and not self.parent.visited:
-            self.parent.search(dist + 1)
 
 
 def build_orbits(orbits):
