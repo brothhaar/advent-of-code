@@ -24,11 +24,13 @@ def parse_code(code_str):
 
 
 class IntCodeComputer:
-    input_value = None
+    inputs = []
     output_value = None
 
-    def __init__(self, input_value=None):
-        self.input_value = input_value
+    def __init__(self, inputs=None):
+        if inputs is None:
+            inputs = []
+        self.inputs = inputs
 
     def op_add(self, ip, code, param_modes):
         op1 = get_operand(code, ip + 1, param_modes[0])
@@ -48,8 +50,9 @@ class IntCodeComputer:
 
     def op_input(self, ip, code, param_modes):
         op1 = code[ip + 1]
-        code[op1] = self.input_value
-        print('%d input %d => %d' % (ip, self.input_value, op1))
+        input =  self.inputs.pop(0)
+        code[op1] = input
+        print('%d input %d => %d' % (ip, input, op1))
         return ip + 2, code
 
     def op_output(self, ip, code, param_modes):
